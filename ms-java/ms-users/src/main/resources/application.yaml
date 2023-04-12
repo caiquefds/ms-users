@@ -1,0 +1,36 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /users
+
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    iv-generator-classname: org.jasypt.iv.RandomIvGenerator
+    password: ${CRYPT_KEY:PWD}
+
+spring:
+  profiles:
+    active: ${PROFILE:}
+
+management:
+  endpoint:
+    health:
+      show-components: always
+  endpoints:
+    web:
+      base-path: /v1/actuator
+      exposure:
+        include: actuator,logfile,metrics,health,info
+
+logging:
+  file:
+    path: .
+    name: ms-users.log
+  level:
+    root: info
+    org:
+      springframework:
+      web: info
+    com:
+      portoseg: debug
