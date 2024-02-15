@@ -1,0 +1,201 @@
+openapi: 3.0.0
+info:
+  title: Users API 
+  description: This is an API to manage users.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/users/v1
+  - url: http://localhost:8081/users/v1
+tags:
+  - name: Users
+paths:
+  /user:
+    post:
+      tags:
+        - Users
+      summary: Create user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUserRequest'
+      responses:
+        '202':
+          description: Accepted
+          headers:
+              url:
+                schema:
+                  type: string
+                description: Return url with userId.
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorReponse' 
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorReponse' 
+        '500':
+           description: Internal Server Error
+  /user/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get user by user name
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserIdResponse'          
+        '404':
+          description: Not found
+        '500':
+          description: Internal error server
+    patch:
+      tags:
+        - Users
+      summary: Update user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchUserRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchUserResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorReponse' 
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorReponse' 
+        '500':
+           description: Internal Server Error
+    delete:
+      tags:
+      - Users
+      summary: Delete user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No content
+        '500':
+          description: Internal error server
+components:
+  schemas:
+    PostUserRequest:
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        username:
+          type: string
+          example: name
+        email:
+          type: string
+          example: email@email.com
+        password:
+          type: string
+          example: '12345'
+    GetUserIdResponse:
+      type: object
+      properties:
+        username:
+          type: string
+          example: name
+        email:
+          type: string
+          example: email@email.com
+        password:
+          type: string
+          example: '12345'
+        status:
+          type: string
+          description: User status
+          enum:
+            - ACTIVE
+            - INACTIVE
+    PatchUserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          example: name
+        email:
+          type: string
+          example: email@email.com
+        password:
+          type: string
+          example: '12345'
+        status:
+          type: string
+          description: User status
+          enum:
+            - ACTIVE
+            - INACTIVE
+    PatchUserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 3ce052fe-bf42-11ed-afa1-0242ac120002
+        username:
+          type: string
+          example: name
+        email:
+          type: string
+          example: email@email.com
+        password:
+          type: string
+          example: '12345'
+        status:
+          type: string
+          description: User status
+          enum:
+            - ACTIVE
+            - INACTIVE
+    ErrorReponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 4XX.XXX
+        message:
+          type: string
+          example: Failed message
