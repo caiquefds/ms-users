@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -42,6 +44,7 @@ public class UserDomain implements Serializable {
     private String password;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private StatusType status;
 
     public static UserDomain valueOf(CreateUserRequest createUserRequest) {
@@ -49,7 +52,7 @@ public class UserDomain implements Serializable {
                 .username(createUserRequest.getUsername())
                 .email(createUserRequest.getEmail())
                 .password(createUserRequest.getPassword())
-                .status(StatusType.ATIVO)
+                .status(StatusType.ENABLED)
                 .build();
     }
 

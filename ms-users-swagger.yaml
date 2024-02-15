@@ -13,7 +13,7 @@ paths:
     post:
       tags:
         - Users
-      summary: Create user
+      summary: Create user.
       requestBody:
         content:
           application/json:
@@ -45,7 +45,7 @@ paths:
     get:
       tags:
         - Users
-      summary: Get user by user name
+      summary: Get user by user name.
       parameters:
         - name: id
           in: path
@@ -66,7 +66,7 @@ paths:
     patch:
       tags:
         - Users
-      summary: Update user
+      summary: Update user.
       parameters:
         - name: id
           in: path
@@ -79,12 +79,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/PatchUserRequest'
       responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PatchUserResponse'
+        '204':
+          description: No content
         '400':
           description: Bad request
           content:
@@ -102,7 +98,7 @@ paths:
     delete:
       tags:
       - Users
-      summary: Delete user
+      summary: Delete user.
       parameters:
         - name: id
           in: path
@@ -119,11 +115,11 @@ components:
     PostUserRequest:
       type: object
       required:
-        - username
+        - user_name
         - email
         - password
       properties:
-        username:
+        user_name:
           type: string
           example: name
         email:
@@ -135,7 +131,7 @@ components:
     GetUserIdResponse:
       type: object
       properties:
-        username:
+        user_name:
           type: string
           example: name
         email:
@@ -148,12 +144,12 @@ components:
           type: string
           description: User status
           enum:
-            - ACTIVE
-            - INACTIVE
+            - ENABLED
+            - DISABLED
     PatchUserRequest:
       type: object
       properties:
-        username:
+        user_name:
           type: string
           example: name
         email:
@@ -166,30 +162,8 @@ components:
           type: string
           description: User status
           enum:
-            - ACTIVE
-            - INACTIVE
-    PatchUserResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: 3ce052fe-bf42-11ed-afa1-0242ac120002
-        username:
-          type: string
-          example: name
-        email:
-          type: string
-          example: email@email.com
-        password:
-          type: string
-          example: '12345'
-        status:
-          type: string
-          description: User status
-          enum:
-            - ACTIVE
-            - INACTIVE
+            - ENABLED
+            - DISABLED
     ErrorReponse:
       type: object
       properties:
@@ -198,4 +172,4 @@ components:
           example: 4XX.XXX
         message:
           type: string
-          example: Failed message
+          example: message

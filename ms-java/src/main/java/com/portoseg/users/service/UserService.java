@@ -2,6 +2,9 @@ package com.portoseg.users.service;
 
 import java.util.Optional;
 
+import com.amazonaws.services.dynamodbv2.model.Get;
+import com.portoseg.users.exception.NotFoundException;
+import com.portoseg.users.model.dto.response.GetUserByIdResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +20,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UsersService {
+public class UserService {
 
     private final UsersRepository usersRepository;
 
+    public GetUserByIdResponse findUserById(String id) {
+       return usersRepository.findById(id).map( userDomain -> {
+            log.info("User found!");
+            return GetUserByIdResponse.valueOf(userDomain);
+        }).orElseThrow(NotFoundException::new);
+    }
+
     public String createUser(CreateUserRequest createUserRequest) {
         log.info("Creating User");
-
         UserDomain userDomain = UserDomain.valueOf(createUserRequest);
 
         boolean isPresent = usersRepository.findByEmailAndUsername(userDomain.getEmail(), userDomain.getUsername()).isPresent();
@@ -62,7 +71,7 @@ public class UsersService {
         return userDomain;
     }
 
-    public void deleteUser(String id) {
+    public void deleteUserById(String id) {
         log.info("Deleting User by id: {}...", id);
         usersRepository.findById(id).ifPresent(usersRepository::delete);
     }

@@ -10,8 +10,8 @@
     </parent>
     <groupId>com.portoseg</groupId>
     <artifactId>ms-credit-card-block</artifactId>
-    <version>0.38.0</version>
-    <name>ms-credit-card-block</name>
+    <version>1.0.0</version>
+    <name>ms-java</name>
     <description>ms-credit-card-block</description>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -76,16 +76,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.9</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-core</artifactId>
-            <version>${sdkcore.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk</artifactId>
-            <version>${sdk.version}</version>
         </dependency>
     </dependencies>
 
