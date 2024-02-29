@@ -1,6 +1,7 @@
 package com.portoseg.users.model.dto.response;
 
-import com.amazonaws.services.dynamodbv2.model.Get;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.portoseg.users.enumeration.StatusType;
 import com.portoseg.users.model.domain.UserDomain;
 import lombok.AllArgsConstructor;
@@ -10,9 +11,10 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class GetUserByIdResponse {
 
-    private String username;
+    private String userName;
 
     private String email;
 
@@ -22,7 +24,7 @@ public class GetUserByIdResponse {
 
     public static GetUserByIdResponse valueOf(UserDomain userDomain){
        return GetUserByIdResponse.builder()
-                .username(userDomain.getUsername())
+                .userName(userDomain.getUsername())
                 .email(userDomain.getEmail())
                 .password(userDomain.getPassword())
                 .status(userDomain.getStatus())

@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUserById(@RequestBody @Valid UpdateUserRequest updateUserRequest, @PathVariable String id) {
         userService.updateUser(updateUserRequest, id);
     }

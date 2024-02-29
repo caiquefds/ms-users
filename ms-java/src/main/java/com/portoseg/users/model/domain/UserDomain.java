@@ -49,7 +49,7 @@ public class UserDomain implements Serializable {
 
     public static UserDomain valueOf(CreateUserRequest createUserRequest) {
         return UserDomain.builder()
-                .username(createUserRequest.getUsername())
+                .username(createUserRequest.getUserName())
                 .email(createUserRequest.getEmail())
                 .password(createUserRequest.getPassword())
                 .status(StatusType.ENABLED)
