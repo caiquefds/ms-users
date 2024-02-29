@@ -1,5 +1,7 @@
 package com.portoseg.users.model.dto.request;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.portoseg.users.enumeration.StatusType;
 
 import lombok.AllArgsConstructor;
@@ -11,9 +13,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UpdateUserRequest {
 
-    private String username;
+    private String userName;
 
     private String email;
 

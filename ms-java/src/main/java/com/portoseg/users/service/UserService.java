@@ -2,7 +2,6 @@ package com.portoseg.users.service;
 
 import java.util.Optional;
 
-import com.amazonaws.services.dynamodbv2.model.Get;
 import com.portoseg.users.exception.NotFoundException;
 import com.portoseg.users.model.dto.response.GetUserByIdResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -57,7 +56,7 @@ public class UserService {
                 .filter(StringUtils::isNotBlank)
                 .ifPresent(userDomain::setEmail);
 
-        Optional.ofNullable(updateUserRequest.getUsername())
+        Optional.ofNullable(updateUserRequest.getUserName())
                 .ifPresent(userDomain::setUsername);
 
         Optional.ofNullable(updateUserRequest.getPassword())
